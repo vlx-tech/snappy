@@ -1,0 +1,26 @@
+# snappy
+
+SubDir TOP external snappy ;
+
+{
+    local SOURCES HEADERS ;
+    SOURCES +=
+        snappy.cc
+        snappy-internal.h
+        snappy-stubs-internal.h
+        snappy-stubs-internal.cc
+        snappy-sinksource.cc
+        ;
+    SOURCES = $(SUBDIR)/$(SOURCES) ;
+
+    HEADERS += 
+        snappy.h
+        snappy-sinksource.h
+        snappy-stubs-public.h
+        ;
+    HEADERS = $(SUBDIR)/$(HEADERS) ;
+
+    C.IncludeDirectories * : .include ;
+    local LIB = [ C.Library external-snappy : $(SOURCES) ] ;
+    CopyFiles $(LIB) : $(SUBDIR)/.include : $(HEADERS) ;
+}
